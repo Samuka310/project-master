@@ -1,0 +1,32 @@
+{
+  "name": "PROJETO SUPREMO",
+  "version": "1.0.0",
+  "description": "Template full-stack com Next.js, NestJS, Prisma e TypeScript",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel run dev",
+    "build": "pnpm --recursive run build",
+    "lint": "pnpm --recursive run lint",
+    "test": "pnpm --recursive run test",
+    "clean": "pnpm --recursive run clean && rm -rf node_modules"
+  },
+  "keywords": [
+    "monorepo",
+    "nextjs",
+    "nestjs",
+    "prisma",
+    "typescript"
+  ],
+  "author": "SAMUEL",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "devDependencies": {
+    "@types/node": "^22.8.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0"
+  }
+}

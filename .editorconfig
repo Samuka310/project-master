@@ -1,0 +1,25 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Configuração raiz
+root = true
+
+# Configurações para todos os arquivos
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markdown permite múltiplos espaços no final
+[*.md]
+trim_trailing_whitespace = false
+
+# YAML usa 2 espaços
+[*.{yml,yaml}]
+indent_size = 2
+
+# Python usa 4 espaços
+[*.py]
+indent_size = 4
