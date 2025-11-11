@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: project-master-db-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-projectmaster}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    networks:
+      - project-network
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U postgres' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend NestJS
+  backend:
+    build:
+      context: ../apps/backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: project-master-backend-prod
+    restart: always
+    ports:
+      - '4000:4000'
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      PORT: 4000
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - project-network
+    command: sh -c "npx prisma migrate deploy && node dist/main"
+
+  # Frontend Next.js
+  frontend:
+    build:
+      context: ../apps/frontend
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    container_name: project-master-frontend-prod
+    restart: always
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+      NODE_ENV: production
+    depends_on:
+      - backend
+    networks:
+      - project-network
+
+volumes:
+  postgres_data_prod:
+    driver: local
+
+networks:
+  project-network:
+    driver: bridge

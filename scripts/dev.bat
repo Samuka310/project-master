@@ -1,0 +1,4 @@
+@echo off
+echo Starting Project Master in development mode...
+cd /d "%~dp0.."
+docker compose -f docker-compose.dev.yml up --build
