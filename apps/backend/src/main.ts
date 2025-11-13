@@ -10,9 +10,8 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://*.vercel.app', // Permite todos os domínios Vercel
-      process.env.FRONTEND_URL, // URL customizada (se configurar)
-    ].filter(Boolean),
+      'https://project-master-frontend.vercel.app', // ← URL EXATA do frontend
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
