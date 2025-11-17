@@ -55,8 +55,20 @@ export default function LoginPage() {
       // Chamar API de login
       const response = await authService.login(data);
 
-      // Salvar no Zustand (persiste no localStorage automaticamente)
+      // ✅ SALVAR NO ZUSTAND (persiste no localStorage automaticamente)
       login(response.user, response.token);
+
+      // ✅ TAMBÉM SALVAR NO LOCALSTORAGE DIRETAMENTE (REDUNDÂNCIA BOA!)
+      localStorage.setItem("token", response.token);
+
+      // ✅ SALVAR USER NO LOCALSTORAGE TAMBÉM (OPCIONAL MAS ÚTIL)
+      localStorage.setItem("user", JSON.stringify(response.user));
+
+      console.log("✅ Login bem-sucedido:", {
+        token: response.token,
+        user: response.user,
+        isAuthenticated: true,
+      });
 
       // Redirecionar para dashboard
       router.push("/dashboard");

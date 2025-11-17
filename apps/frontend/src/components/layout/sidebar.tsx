@@ -63,6 +63,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             <User className="h-4 w-4" />
             <span>Perfil</span>
           </Link>
+          <Link
+            href="/profile"
+            className="flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
+            onClick={onClose}
+          >
+            <User className="h-4 w-4" />
+            <span>Perfil</span>
+          </Link>
         </nav>
       </aside>
     </>

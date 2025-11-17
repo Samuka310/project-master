@@ -18,6 +18,10 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tasks     Task[]
+  // ✨ NOVOS CAMPOS PARA PROFILE
+  bio       String?  @db.Text          // Biografia
+  phone     String?                     // Telefone
+  avatar    String?                     // URL do avatar
 
   @@map("users")
 }
